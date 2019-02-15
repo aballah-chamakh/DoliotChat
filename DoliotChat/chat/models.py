@@ -22,19 +22,14 @@ class Message(models.Model):
         return 'msg from {owner} on the thread {thread}'.format(owner=self.owner.user.username,thread=self.thread)
 
 
-class MessageNotification(models.Model):
-    message = models.OneToOneField(Message,on_delete=models.CASCADE)
-    def __str__(self):
-        return self.message
+    @property
+    def other_user(self):
+        if self.owner != self.thread.first_user :
+            return self.thread.first_user
+        else :
+            return self.thread.second_user
 
-
-@receiver(post_save, sender=Message)
-def create_user_profile(sender, message, created, **kwargs):
-
-    if created :
-        if message.owner != message.first_user and message.first_user is None :
-            MessageNotification.objects.create(message=message)
-
-
-
-        profile_obj = Profile.objects.create(user=instance)
+# @receiver(post_save, sender=Message)
+# def create_user_profile(sender, instance, created, **kwargs):
+#     if created :
+#         profile_obj = Profile.objects.create(user=instance)
