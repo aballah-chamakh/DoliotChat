@@ -8,8 +8,8 @@ from channels.layers import get_channel_layer
 
 
 class Thread(models.Model):
-    first_user = models.ManyToMany(Profile)
-    second_user = models.ManyToMany(Profile)
+    first_user = models.ManyToManyField(Profile)
+    second_user = models.ManyToManyField(Profile)
     thread_name = models.CharField(max_length=255,blank=True,null=True)
     def __str__(self):
         return 'this thread for {first_user} & {second_user}'.format(first_user=self.first_user.user.username,
@@ -18,6 +18,7 @@ class Message(models.Model):
     owner = models.OneToOneField(Profile,on_delete=models.CASCADE)
     content = models.TextField()
     Thread = models.ForeignKey(Thread,on_delete=models.CASCADE)
+
     def __str__(self):
         return 'msg from {owner} on the thread {thread}'.format(owner=self.owner.user.username,thread=self.thread)
 

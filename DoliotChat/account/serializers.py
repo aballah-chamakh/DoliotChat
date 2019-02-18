@@ -27,7 +27,6 @@ class UserSerializer(serializers.ModelSerializer):
         return user_obj
 
 class ProfileSerializer(serializers.ModelSerializer):
-
     user = UserSerializer(read_only=True)
     class Meta :
         model = Profile

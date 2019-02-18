@@ -1,14 +1,13 @@
-from django.shortcuts import render
-from reast_framework.viewsets import ModelViewSet
-from .models import User
-from .serializers import UserSerializer
+from rest_framework.viewsets import ModelViewSet
+from .models import User,Profile
+from .serializers import UserSerializer,ProfileSerializer
 
 
-class UserVieset(ModelViewSet):
-    model = User
+class UserViewset(ModelViewSet):
+    queryset = User.objects.all()
     serializer_class = UserSerializer
 
 
 class ProfileViewSet(ModelViewSet):
-    model = Profile
-    serializer_class = ProfileSerializer 
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer

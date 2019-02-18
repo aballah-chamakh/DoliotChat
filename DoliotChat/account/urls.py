@@ -1,10 +1,10 @@
 from django.urls import path
 from django.conf.urls import include
 from rest_framework import routers
-from .views import UserVieset,ProfileViewSet
+from .views import UserViewset,ProfileViewSet
 
-router  = routers.defaultRouter()
-router.register('user',UserVieset)
+router  = routers.DefaultRouter()
+router.register('user',UserViewset)
 router.register('profile',ProfileViewSet)
 
 urlspatterns = [
