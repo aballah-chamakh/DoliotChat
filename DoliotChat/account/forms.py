@@ -1,3 +1,7 @@
+from django import forms
+from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from .models import User
+
 class UserAdminCreationForm(forms.ModelForm):
 
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)

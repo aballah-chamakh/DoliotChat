@@ -8,27 +8,27 @@ from channels.layers import get_channel_layer
 
 
 class Thread(models.Model):
-    first_user = models.ManyToManyField(Profile)
-    second_user = models.ManyToManyField(Profile)
+    first_user = models.ForeignKey(Profile,on_delete=models.CASCADE,related_name='first_user',null=True,blank=True)
+    second_user = models.ForeignKey(Profile,on_delete=models.CASCADE,related_name='second_user',null=True,blank=True)
     thread_name = models.CharField(max_length=255,blank=True,null=True)
-    def __str__(self):
-        return 'this thread for {first_user} & {second_user}'.format(first_user=self.first_user.user.username,
-                                                                     second_user=self.second_user.user.username)
+    # def __str__(self):
+    #     return 'this thread for {first_user} & {second_user}'.format(first_user=self.first_user.user.username,
+    #                                                                  second_user=self.second_user.user.username)
 class Message(models.Model):
-    owner = models.OneToOneField(Profile,on_delete=models.CASCADE)
+    owner = models.ForeignKey(Profile,on_delete=models.CASCADE)
     content = models.TextField()
-    Thread = models.ForeignKey(Thread,on_delete=models.CASCADE)
+    thread = models.ForeignKey(Thread,on_delete=models.CASCADE)
 
     def __str__(self):
         return 'msg from {owner} on the thread {thread}'.format(owner=self.owner.user.username,thread=self.thread)
 
 
-    @property
-    def other_user(self):
-        if self.owner != self.thread.first_user :
-            return self.thread.first_user
-        else :
-            return self.thread.second_user
+    # @property
+    # def other_user(self):
+    #     if self.owner != self.thread.first_user :
+    #         return self.thread.first_user
+    #     else :
+    #         return self.thread.second_user
 
 # @receiver(post_save, sender=Message)
 # def create_user_profile(sender, instance, created, **kwargs):

@@ -7,7 +7,7 @@ router  = routers.DefaultRouter()
 router.register('user',UserViewset)
 router.register('profile',ProfileViewSet)
 
-urlspatterns = [
+urlpatterns = [
 path('',include(router.urls)),
 
 ]

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework_jwt',
     'channels',
+    'channels_redis',
     'account',
     'chat',
 ]
@@ -55,7 +56,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+CORS_ORIGIN_ALLOW_ALL = True
 ROOT_URLCONF = 'DoliotChat.urls'
 
 TEMPLATES = [
@@ -75,7 +76,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'DoliotChat.wsgi.application'
-ASGI_APPLICATION = 'DoliotChat.routing'
+ASGI_APPLICATION = 'DoliotChat.routing.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
