@@ -11,9 +11,10 @@ class Thread(models.Model):
     first_user = models.ForeignKey(Profile,on_delete=models.CASCADE,related_name='first_user',null=True,blank=True)
     second_user = models.ForeignKey(Profile,on_delete=models.CASCADE,related_name='second_user',null=True,blank=True)
     thread_name = models.CharField(max_length=255,blank=True,null=True)
-    # def __str__(self):
-    #     return 'this thread for {first_user} & {second_user}'.format(first_user=self.first_user.user.username,
-    #                                                                  second_user=self.second_user.user.username)
+    def __str__(self):
+        return 'this thread for '+self.thread_name
+
+        
 class Message(models.Model):
     owner = models.ForeignKey(Profile,on_delete=models.CASCADE)
     content = models.TextField()

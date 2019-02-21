@@ -4,9 +4,12 @@ from .models import User,Profile
 
 class UserSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(write_only=True)
+    password = serializers.CharField(write_only=True)
+    profile_id = serializers.IntegerField(source='profile.id',read_only=True)
+
     class Meta :
         model = User
-        fields = ['id','username','email','password','password2']
+        fields = ['id','profile_id','username','email','password','password2']
     def validate(self,data):
         email = data.get('email')
         qs = User.objects.filter(email=email)
@@ -26,7 +29,8 @@ class UserSerializer(serializers.ModelSerializer):
         return user_obj
 
 class ProfileSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
+    user = UserSerializer()
+    image = serializers.CharField(source='image.url')
     class Meta :
         model = Profile
         fields = ['id','user','image']

@@ -61,6 +61,9 @@ class User(AbstractBaseUser):
 
     objects = UserManager()
 
+    def __str__(self):
+        return '{username} {id}'.format(username=self.username,id=self.id)
+
     def get_full_name(self):
 
         return self.username
@@ -99,6 +102,8 @@ class User(AbstractBaseUser):
 class Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     image = models.ImageField(null=True,blank=True)
+    def __str__(self):
+        return '{username} {id}'.format(username=self.user.username,id=self.id)
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
