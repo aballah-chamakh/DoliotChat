@@ -6,10 +6,11 @@ class UserSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(write_only=True)
     password = serializers.CharField(write_only=True)
     profile_id = serializers.IntegerField(source='profile.id',read_only=True)
+    profile_img = serializers.CharField(source='profile.image.url',read_only=True)
 
     class Meta :
         model = User
-        fields = ['id','profile_id','username','email','password','password2']
+        fields = ['id','profile_id','username','email','password','password2','profile_img']
     def validate(self,data):
         email = data.get('email')
         qs = User.objects.filter(email=email)
